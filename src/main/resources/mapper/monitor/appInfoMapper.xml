@@ -41,13 +41,14 @@
 	</select>
 
 	<select id="queryByPage" resultType="AppInfo">
-		select * from appinfo where appname like CONCAT(CONCAT('%', #{condition}),
-		'%') limit #{startId},#{pageLength}
-		union
-		select * from appinfo where appdesc like CONCAT(CONCAT('%', #{condition}),
-		'%') limit #{startId},#{pageLength}
+		select * from appinfo
+		<if test="condition != ''.toString()">
+			<![CDATA[ where appname like #{condition}]]>
+		</if>
+		limit #{startId},#{pageLength}
 	</select>
-
+	<!--union
+	select * from appinfo where appdesc like #{condition} limit #{startId},#{pageLength}-->
 	<select id="queryAll" resultType="AppInfo">
 		select * from appinfo
 	</select>

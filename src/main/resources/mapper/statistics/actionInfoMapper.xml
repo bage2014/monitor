@@ -190,7 +190,6 @@
 				select id FROM statistics_month_action
 				WHERE queryTime >= #{startTime} AND queryTime <= #{stopTime}
 				and h.appid = #{appid}
-				GROUP BY h.pgmId 
 		    ) and h.appid = a.id
 		    ORDER BY h.accessCount DESC LIMIT 0,#{n}
 		 ]]>

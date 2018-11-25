@@ -48,7 +48,7 @@ public class StatisticsInfoTask {
 	private ActionInfoStatisticsService actionInfoStatisticsService;
 	
 	
-	@Scheduled(fixedRate = TaskConstraints.STATISTICS_CHEDULED_FIXEDRATE)
+	// @Scheduled(fixedRate = TaskConstraints.STATISTICS_CHEDULED_FIXEDRATE)
 	public void insertStatisticsData() {
 		
 		int n = 1;

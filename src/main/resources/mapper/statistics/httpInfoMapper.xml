@@ -117,7 +117,6 @@
 			WHERE h.id IN(
 				select id FROM statistics_minute_http
 				WHERE queryTime >= #{startTime} AND queryTime <= #{stopTime}
-				GROUP BY appid 
 		    ) and h.appid = a.id
 		 ]]>
 		ORDER BY h.hits

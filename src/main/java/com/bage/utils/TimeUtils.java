@@ -69,7 +69,11 @@ public class TimeUtils {
 	public static String getNextTime(String time, int year, int month, int day, int hour, int minute, int second) {
 		Date date = null;
 		try {
-			date = df.parse(time);
+			if("".equals(time)){
+				date = new Date();
+			} else {
+				date = df.parse(time);
+			}
 			Calendar calendar = Calendar.getInstance();
 			calendar.setTime(date);
 			calendar.set(Calendar.YEAR, calendar.get(Calendar.YEAR) + year);
@@ -89,9 +93,9 @@ public class TimeUtils {
 	 * 拷贝于 http://blog.csdn.net/nodie/article/details/6426345
 	 * 两个时间相差距离多少天多少小时多少分多少秒
 	 * 
-	 * @param str1
+	 * @param time01
 	 *            时间参数 1 格式：1990-01-01 12:00:00
-	 * @param str2
+	 * @param time02
 	 *            时间参数 2 格式：2009-01-01 12:00:00
 	 * @return long[] 返回值为：{天, 时, 分, 秒}
 	 */
