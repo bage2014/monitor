@@ -12,7 +12,7 @@ Spring Boot + MyBatis + AngularJS 的综合项目示例，一体化监控平台
 ![](https://github.com/bage2014/monitor/blob/master/src/main/resources/static/img/%E9%A1%B9%E7%9B%AE%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84.png)
 #### 说明 ####
 ##### \src\main\java\com\bage 目录下 #####
-- application 应用启动类，启动应用直接右键Run as -> Java Application 即可
+- application 应用启动类，启动应用直接右键Run as -> Java Application 即可；访问路径：http://localhost:8080/monitor
 - config 存放配置相关类
 - constraints 存放常量类
 - controller 存放接口API，请求请求入口
