@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Copyright 2015-2016 the original author or authors. Licensed under the 
+	Apache License, Version 2.0 (the "License"); you may not use this file except 
+	in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 
+	Unless required by applicable law or agreed to in writing, software distributed 
+	under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES 
+	OR CONDITIONS OF ANY KIND, either express or implied. See the License for 
+	the specific language governing permissions and limitations under the License. -->
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bage.mapper.statistics.ActionInfoStatisticsMapper">
+
+
+	<select id="queryLatest" resultType="HashMap">
+		<![CDATA[
+			select h.* ,a.appname,a.appdesc
+			FROM statistics_minute_action h , appinfo a
+			WHERE h.appid = #{appid} and h.appid = a.id
+			and h.id > #{maxId}
+		 ]]>
+	</select>
+	
+<select id="getMinuteTotalRow" resultType="java.lang.Integer">
+		select count(1) as totalRow from statistics_minute_action
+		where appid = #{appid}
+		<if test="startTime != ''.toString()"><![CDATA[AND queryTime >= #{startTime}]]></if>
+		<if test="stopTime != ''.toString()"><![CDATA[AND queryTime <= #{stopTime}]]></if>
+		<if test="condition != ''.toString()"><![CDATA[AND ( pgmId like CONCAT(CONCAT('%', #{condition}), '%') 
+			OR pgmNam like CONCAT(CONCAT('%', #{condition}), '%') 
+			OR pathDsc like CONCAT(CONCAT('%', #{condition}), '%') 
+		)]]></if>
+	</select>
+	<select id="queryMinuteByPage" resultType="HashMap">
+		select a.* from statistics_minute_action a
+		where a.appid = #{appid}
+		<if test="startTime != ''.toString()"><![CDATA[AND queryTime >= #{startTime}]]></if>
+		<if test="stopTime != ''.toString()"><![CDATA[AND queryTime <= #{stopTime}]]></if>
+		<if test="condition != ''.toString()"><![CDATA[AND ( pgmId like CONCAT(CONCAT('%', #{condition}), '%') 
+			OR pgmNam like CONCAT(CONCAT('%', #{condition}), '%') 
+			OR pathDsc like CONCAT(CONCAT('%', #{condition}), '%') 
+		)]]></if>
+		order by a.id
+		limit #{startId},#{pageLength}
+	</select>
+	
+	<select id="getHourTotalRow" resultType="java.lang.Integer">
+		select count(1) as totalRow from statistics_hour_action
+		where appid = #{appid}
+		<if test="startTime != ''.toString()"><![CDATA[AND queryTime >= #{startTime}]]></if>
+		<if test="stopTime != ''.toString()"><![CDATA[AND queryTime <= #{stopTime}]]></if>
+	</select>
+	<select id="queryHourByPage" resultType="HashMap">
+		select a.* from statistics_hour_action a
+		where a.appid = #{appid}
+		<if test="startTime != ''.toString()"><![CDATA[AND queryTime >= #{startTime}]]></if>
+		<if test="stopTime != ''.toString()"><![CDATA[AND queryTime <= #{stopTime}]]></if>
+		order by a.id
+		limit #{startId},#{pageLength}
+	</select>
+
+	<select id="getDayTotalRow" resultType="java.lang.Integer">
+		select count(1) as totalRow from statistics_day_action
+		where appid = #{appid}
+		<if test="startTime != ''.toString()"><![CDATA[AND queryTime >= #{startTime}]]></if>
+		<if test="stopTime != ''.toString()"><![CDATA[AND queryTime <= #{stopTime}]]></if>
+	</select>
+	<select id="queryDayByPage" resultType="HashMap">
+		select a.* from statistics_day_action a
+		where a.appid = #{appid}
+		<if test="startTime != ''.toString()"><![CDATA[AND queryTime >= #{startTime}]]></if>
+		<if test="stopTime != ''.toString()"><![CDATA[AND queryTime <= #{stopTime}]]></if>
+		order by a.id
+		limit #{startId},#{pageLength}
+	</select>
+	
+	<select id="getMonthTotalRow" resultType="java.lang.Integer">
+		select count(1) as totalRow from statistics_month_action
+		where appid = #{appid}
+		<if test="startTime != ''.toString()"><![CDATA[AND queryTime >= #{startTime}]]></if>
+		<if test="stopTime != ''.toString()"><![CDATA[AND queryTime <= #{stopTime}]]></if>
+	</select>
+	<select id="queryMonthByPage" resultType="HashMap">
+		select a.* from statistics_month_action a
+		where a.appid = #{appid}
+		<if test="startTime != ''.toString()"><![CDATA[AND queryTime >= #{startTime}]]></if>
+		<if test="stopTime != ''.toString()"><![CDATA[AND queryTime <= #{stopTime}]]></if>
+		order by a.id
+		limit #{startId},#{pageLength}
+	</select>
+
+	<select id="getYearTotalRow" resultType="java.lang.Integer">
+		select count(1) as totalRow from statistics_year_action
+		where appid = #{appid}
+		<if test="startTime != ''.toString()"><![CDATA[AND queryTime >= #{startTime}]]></if>
+		<if test="stopTime != ''.toString()"><![CDATA[AND queryTime <= #{stopTime}]]></if>
+	</select>
+	<select id="queryYearByPage" resultType="HashMap">
+		select a.* from statistics_year_action a
+		where a.appid = #{appid}
+		<if test="startTime != ''.toString()"><![CDATA[AND queryTime >= #{startTime}]]></if>
+		<if test="stopTime != ''.toString()"><![CDATA[AND queryTime <= #{stopTime}]]></if>
+		order by a.id
+		limit #{startId},#{pageLength}
+	</select>
+
+
+
+	<select id="latest" resultType="HashMap">
+		<![CDATA[
+			select h.* ,a.appname,a.appdesc
+			FROM statistics_minute_action h , appinfo a
+			WHERE h.appid = #{appid} and h.appid = a.id
+			and h.appid = #{appid}
+			and h.queryTime >= #{startTime} AND h.queryTime <= #{stopTime}
+		 ]]>
+		ORDER BY h.id desc
+		LIMIT 0,#{n}
+	</select>
+
+	<select id="topNHour" resultType="HashMap">
+		select * from (
+		<![CDATA[
+		    select  h.*  FROM statistics_minute_action h
+			WHERE h.queryTime >= #{startTime} AND h.queryTime <= #{stopTime}
+			and h.appid = #{appid}
+			GROUP BY h.pgmId
+			order by h.accessCount desc
+		 ]]>
+		 ) h
+		ORDER BY h.accessCount
+		<if test="sortType == 'DESC'.toString()">DESC</if>
+		LIMIT 0,#{n}
+	</select>
+	<select id="topNDay" resultType="HashMap">
+		select * from 
+		(
+		<![CDATA[
+		    select  h.*  FROM statistics_hour_action h
+			WHERE h.queryTime >= #{startTime} AND h.queryTime <= #{stopTime}
+			and h.appid = #{appid}
+			GROUP BY h.pgmId
+			order by h.accessCount desc
+		 ]]> 
+		 ) h
+		ORDER BY h.accessCount
+		<if test="sortType == 'DESC'.toString()">DESC</if>
+		LIMIT 0,#{n}
+	</select>
+	<select id="topNMonth" resultType="HashMap">
+		select * from 
+		(
+		<![CDATA[
+		    select  h.*  FROM statistics_day_action h
+			WHERE h.queryTime >= #{startTime} AND h.queryTime <= #{stopTime}
+			and h.appid = #{appid}
+			GROUP BY h.pgmId
+			order by h.accessCount desc
+		 ]]> 
+		 )h
+		ORDER BY h.accessCount
+		<if test="sortType == 'DESC'.toString()">DESC</if>
+		LIMIT 0,#{n}
+		
+	</select>
+	<select id="topNYear" resultType="HashMap">
+		select * from 
+		(
+		<![CDATA[
+		    select  h.*  FROM statistics_month_action h
+			WHERE h.queryTime >= #{startTime} AND h.queryTime <= #{stopTime}
+			and h.appid = #{appid}
+			GROUP BY h.pgmId
+			order by h.accessCount desc
+		 ]]> 
+		 )
+		 h
+		ORDER BY h.accessCount
+		<if test="sortType == 'DESC'.toString()">DESC</if>
+		LIMIT 0,#{n}
+		
+	</select>
+
+
+	<select id="topN" resultType="HashMap">
+		<![CDATA[
+			select h.* ,a.appname,a.appdesc
+			FROM statistics_month_action h , appinfo a
+			WHERE h.id IN(
+				select id FROM statistics_month_action
+				WHERE queryTime >= #{startTime} AND queryTime <= #{stopTime}
+				and h.appid = #{appid}
+				GROUP BY h.pgmId 
+		    ) and h.appid = a.id
+		    ORDER BY h.accessCount DESC LIMIT 0,#{n}
+		 ]]>
+	</select>
+
+	<insert id="insertBatchMinute" parameterType="java.util.List">
+		insert into statistics_minute_action (appid,queryTime
+		,pgmNo,pgmId,pgmNam,modTyp,pathDsc,accessCount
+		)
+		values
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(#{item.appid},#{item.queryTime}
+			,#{item.pgmNo},#{item.pgmId},#{item.pgmNam},#{item.modTyp},#{item.pathDsc},#{item.accessCount})
+		</foreach>
+	</insert>
+
+	<insert id="insertBatchHour" parameterType="java.util.List">
+		insert into statistics_hour_action (appid,queryTime
+		,pgmNo,pgmId,pgmNam,modTyp,pathDsc,accessCount
+		)
+		values
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(#{item.appid},#{item.queryTime}
+			,#{item.pgmNo},#{item.pgmId},#{item.pgmNam},#{item.modTyp},#{item.pathDsc},#{item.accessCount})
+		</foreach>
+	</insert>
+
+	<insert id="insertBatchDay" parameterType="java.util.List">
+		insert into statistics_day_action (appid,queryTime
+		,pgmNo,pgmId,pgmNam,modTyp,pathDsc,accessCount
+		)
+		values
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(#{item.appid},#{item.queryTime}
+			,#{item.pgmNo},#{item.pgmId},#{item.pgmNam},#{item.modTyp},#{item.pathDsc},#{item.accessCount})
+		</foreach>
+	</insert>
+
+	<insert id="insertBatchMonth" parameterType="java.util.List">
+		insert into statistics_month_action (appid,queryTime
+		,pgmNo,pgmId,pgmNam,modTyp,pathDsc,accessCount
+		)
+		values
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(#{item.appid},#{item.queryTime}
+			,#{item.pgmNo},#{item.pgmId},#{item.pgmNam},#{item.modTyp},#{item.pathDsc},#{item.accessCount})
+		</foreach>
+	</insert>
+
+	<insert id="insertBatchYear" parameterType="java.util.List">
+		insert into statistics_year_action (appid,queryTime
+		,pgmNo,pgmId,pgmNam,modTyp,pathDsc,accessCount
+		)
+		values
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(#{item.appid},#{item.queryTime}
+			,#{item.pgmNo},#{item.pgmId},#{item.pgmNam},#{item.modTyp},#{item.pathDsc},#{item.accessCount})
+		</foreach>
+	</insert>
+
+</mapper>

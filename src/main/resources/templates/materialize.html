@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html>
+<head th:include="common :: third"><!-- 引入公共部分 -->
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
+</head>
+<body>
+	<nav class="purple">
+		<div class="nav-wrapper">
+			<a href="#!" class="brand-logo"><i class="material-icons"></i><i
+				class="material-icons">queue_music</i>Logo</a>
+			<ul class="right hide-on-med-and-down">
+				<li>
+					<div class="input-field col s6">
+						<input placeholder="Search" id="first_name" type="text"
+							class="validate"></input>
+					</div>
+				</li>
+				<li><a href=""><i class="material-icons">search</i></a></li>
+				<li><a href="">Menu1</a></li>
+				<li><a href="">Menu2</a></li>
+				<li><a href="">Menu3</a></li>
+
+				<!-- Dropdown Trigger -->
+				<li><a class="dropdown-button" href="#!"
+					data-activates="dropdown1"> <!-- <i class="material-icons col s2"><img src="http://materializecss.com/images/yuna.jpg" alt="" class="circle responsive-img"></img> notice the "circle" class</i> -->
+						Username <span class="new badge">4</span><i
+						class="material-icons right">arrow_drop_down</i></a></li>
+			</ul>
+			<!-- Dropdown Structure -->
+			<ul id="dropdown1" class="dropdown-content">
+				<li><a href="#!"> SubMenu1</a></li>
+				<li><a href="#!"> SubMenu2</a></li>
+				<li class="divider"></li>
+				<li><a href="#!"> SubMenu3</a></li>
+			</ul>
+		</div>
+	</nav>
+	<div class="section no-pad-bot" id="index-banner">
+		<div class="container">
+			<div class="row center">
+				<video class="responsive-video" controls="true">
+					<source src="http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"
+						type="video/mp4"></source>
+				</video>
+			</div>
+		</div>
+		<div class="container">
+			<br> </br>
+			<h1 class="header center orange-text">河海大学常州校区</h1>
+			<div class="row center">
+				<h5 class="header col s12 light">谁总说毕业遥遥无期，转眼就各奔东西</h5>
+			</div>
+			<div class="row center">
+				<div class="fixed-action-btn vertical click-to-toggle">
+					<a class="btn-floating btn-large red"> <i
+						class="material-icons">menu</i>
+					</a>
+					<ul>
+						<li><a class="btn-floating red"><i class="material-icons">insert_chart</i></a></li>
+						<li><a class="btn-floating yellow darken-1"><i
+								class="material-icons">format_quote</i></a></li>
+						<li><a class="btn-floating green"><i
+								class="material-icons">publish</i></a></li>
+						<li><a class="btn-floating blue"><i
+								class="material-icons">attach_file</i></a></li>
+					</ul>
+				</div>
+				<a href="" id="download-button"
+					class="btn-large waves-effect waves-light orange">我要毕业！</a>
+				<div class="preloader-wrapper big active">
+					<div class="spinner-layer spinner-blue-only">
+						<div class="circle-clipper right">
+							<div class="circle"></div>
+						</div>
+					</div>
+				</div>
+
+				<a class="waves-effect waves-light btn" href="#modal1">Modal</a>
+			</div>
+			<br> </br>
+
+		</div>
+	</div>
+
+
+	<div class="container">
+		<div class="row">
+			<div class="col s12">
+				<ul class="tabs">
+					<li class="tab col s3"><a href="#test1">Test 1</a></li>
+					<li class="tab col s3"><a class="active" href="#test2">Test
+							2</a></li>
+					<li class="tab col s3 disabled"><a href="#test3">Disabled
+							Tab</a></li>
+					<li class="tab col s3"><a href="#test4">Test 4</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="container">
+
+		<div class="section">
+			<div class="row">
+				<table class="highlight">
+					<thead>
+						<tr>
+							<th data-field="id">Title1</th>
+							<th data-field="name">Title2</th>
+							<th data-field="price">Title3</th>
+						</tr>
+					</thead>
+
+					<tbody>
+						<tr>
+							<td>Item11</td>
+							<td>Item12</td>
+							<td>Item13</td>
+						</tr>
+						<tr>
+							<td>Item21</td>
+							<td>Item22</td>
+							<td>Item23</td>
+						</tr>
+						<tr>
+							<td>Item31</td>
+							<td>Item32</td>
+							<td>Item33</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="row">
+				<ul class="pagination">
+					<li class="disabled"><a href="#!"><i
+							class="material-icons">chevron_left</i></a></li>
+					<li class="active"><a href="#!">1</a></li>
+					<li class="waves-effect"><a href="#!">2</a></li>
+					<li class="waves-effect"><a href="#!">3</a></li>
+					<li class="waves-effect"><a href="#!">4</a></li>
+					<li class="waves-effect"><a href="#!">5</a></li>
+					<li class="waves-effect"><a href="#!"><i
+							class="material-icons">chevron_right</i></a></li>
+				</ul>
+			</div>
+			<div class="row">
+				<div class="col s12 m4">
+					<div class="card">
+						<div class="card-image">
+							<img src="http://materializecss.com/images/sample-1.jpg"></img> <span
+								class="card-title">Card Title</span>
+						</div>
+						<div class="card-content">
+							<p>Card Descriptions</p>
+						</div>
+						<div class="card-action">
+							<a href="#">link</a>
+						</div>
+					</div>
+				</div>
+				<div class="col s12 m4">
+					<div class="card">
+						<div class="card-image waves-effect waves-block waves-light">
+							<img class="activator"
+								src="http://materializecss.com/images/office.jpg"></img>
+						</div>
+						<div class="card-content">
+							<span class="card-title activator grey-text text-darken-4">Card
+								Title2<i class="material-icons right">more_vert</i>
+							</span>
+							<p>
+								<a href="#">link</a>
+							</p>
+						</div>
+						<div class="card-reveal">
+							<span class="card-title grey-text text-darken-4">Card
+								Title<i class="material-icons right">close</i>
+							</span>
+							<p>Here is some more information about this product that is
+								only revealed once clicked on.</p>
+						</div>
+					</div>
+				</div>
+				<div class="col s12 m4">
+					<div class="card">
+						<div class="card-image">
+							<img src="http://materializecss.com/images/sample-1.jpg"></img> <span
+								class="card-title">Card Title3</span>
+						</div>
+						<div class="card-content">
+							<p>Card Descriptions</p>
+						</div>
+						<div class="card-action">
+							<a href="#">link</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<br> </br>
+		<div class="section">
+			<nav>
+				<div class="nav-wrapper">
+					<div class="col s12">
+						<a href="#!" class="breadcrumb">First</a> <a href="#!"
+							class="breadcrumb">Second</a> <a href="#!" class="breadcrumb">Third</a>
+					</div>
+				</div>
+			</nav>
+		</div>
+		<div class="section">
+			<div class="row">
+				<div class="chips"></div>
+			</div>
+		</div>
+		<br> </br>
+		<div class="section">
+
+			<div class="row">
+				<form class="col s12">
+					<div class="row">
+						<div class="input-field col s6">
+							<input placeholder="Username" id="first_name" type="text"
+								class="validate"></input>
+						</div>
+						<div class="input-field col s6">
+							<input name="sex" type="radio" id="Boy" ></input> <label for="Boy">Boy</label>
+							<i class="material-icons"></i> <input name="sex" type="radio"
+								id="Girl" ></input> <label for="Girl">Girl</label>
+						</div>
+					</div>
+					<div class="row">
+						<div class="input-field col s12 m6">
+							<select class="icons">
+								<option value="" disabled="" selected="">Choose your option</option>
+								<option value=""
+									data-icon="http://materializecss.com/images/sample-1.jpg"
+									class="circle">select 1</option>
+								<option value=""
+									data-icon="http://materializecss.com/images/office.jpg"
+									class="left circle">select 2</option>
+								<option value=""
+									data-icon="http://materializecss.com/images/yuna.jpg"
+									class="circle">select 3</option>
+							</select>
+						</div>
+						<div class="input-field col s12 m4">
+							<input type="checkbox" class="filled-in" id="CheckBox1"
+								checked="checked" ></input> <label for="CheckBox1">CheckBox1</label> <input
+								type="checkbox" class="filled-in" id="CheckBox2" ></input> <label
+								for="CheckBox2">CheckBox2</label>
+						</div>
+						<!-- Switch -->
+						<div class="switch col s12 m2">
+							<label> Off <input type="checkbox"></input> <span
+								class="lever"></span> On
+							</label>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col s12">
+							<div class="row">
+								<div class="input-field col s12">
+									<i class="material-icons prefix">textsms</i> <input type="text"
+										id="autocomplete-input" class="autocomplete"></input> <label
+										for="autocomplete-input">此功能暂时没成功</label>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<ul class="collection">
+							<li class="collection-item avatar"><i
+								class="material-icons circle">folder</i> <span class="title">Title</span>
+								<p>
+									First Line <br></br> Second Line
+								</p> <a href="#!" class="secondary-content"><i
+									class="material-icons">grade</i></a></li>
+							<li class="collection-item avatar"><i
+								class="material-icons circle green">insert_chart</i> <span
+								class="title">Title</span>
+								<p>
+									First Line <br></br> Second Line
+								</p> <a href="#!" class="secondary-content"><i
+									class="material-icons">grade</i></a></li>
+
+						</ul>
+					</div>
+					<div class="row">
+						<a class="btn"
+							onclick="Materialize.toast('I am a toast!', 3000, 'rounded')">Toast!</a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<footer class="page-footer orange">
+		<div class="container">
+			<div class="row">
+				<div class="col l6 s12">
+					<h5 class="white-text">河海F4</h5>
+					<p class="grey-text text-lighten-4">河海F4河海F4河海F4河海F4河海F4河海F4河海F4河海F4河海F4河海F4河海F4河海F4</p>
+
+
+				</div>
+				<div class="col l3 s12">
+					<h5 class="white-text">河海F4</h5>
+					<ul>
+						<li><a class="white-text" href="#!">河海F4</a></li>
+						<li><a class="white-text" href="#!">河海F4</a></li>
+						<li><a class="white-text" href="#!">河海F4</a></li>
+						<li><a class="white-text" href="#!">河海F4</a></li>
+					</ul>
+				</div>
+				<div class="col l3 s12">
+					<h5 class="white-text">河海F4</h5>
+					<ul>
+						<li><a class="white-text" href="#!">河海F4</a></li>
+						<li><a class="white-text" href="#!">河海F4</a></li>
+						<li><a class="white-text" href="#!">河海F4</a></li>
+						<li><a class="white-text" href="#!">河海F4</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="footer-copyright">
+			<div class="container">
+				Made by <a class="orange-text text-lighten-3"
+					href="http://materializecss.com">河海F4</a>
+			</div>
+		</div>
+	</footer>
+	
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('.modal').modal();
+		});
+		$('.chips').material_chip({
+			placeholder : 'Enter a tag',
+			secondaryPlaceholder : '+Tag',
+		});
+		$('.chips').on('chip.add', function(e, chip) {
+			// you have the added chip here
+		});
+
+		$('.chips').on('chip.delete', function(e, chip) {
+			// you have the deleted chip here
+		});
+
+		$('.chips').on('chip.select', function(e, chip) {
+			// you have the selected chip here
+		});
+		$(".dropdown-button").dropdown();
+		$(document).ready(function() {
+			$('select').material_select();
+		});
+
+		$(document).ready(function() {
+			$('.slider').slider({
+				full_width : true
+			});
+		});
+		$(document).ready(function() {
+			$('ul.tabs').tabs();
+		});
+		$('#autocomplete-input').autocomplete({
+			data : {
+				"Apple" : null,
+				"Microsoft" : null,
+				"Google" : 'http://placehold.it/250x250'
+			}
+		});
+	</script>
+</body>
+</html>
+<div id="modal1" class="modal">
+	<div class="modal-content">
+		<h4>Modal Header</h4>
+		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+			eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+			ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+			aliquip ex ea commodo consequat. Duis aute irure dolor in
+			reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+			pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+			culpa qui officia deserunt mollit anim id est laborum</p>
+	</div>
+	<div class="modal-footer">
+		<a href="#!"
+			class="modal-action modal-close waves-effect waves-red btn-flat ">Disagree</a>
+		<a href="#!"
+			class="modal-action modal-close waves-effect waves-green btn-flat ">Agree</a>
+	</div>
+</div>

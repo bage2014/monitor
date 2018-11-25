@@ -1,0 +1,295 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>数据库语句详情</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<!-- 引入公共部分 -->
+<meta th:include="common :: common"></meta>
+<script type="text/javascript" th:attr="src=@{'/js/sql.js'}"></script>
+
+
+<style type="text/css">
+.common_tr_Even {
+	background: #394056;
+}
+/* 自定义的查询输入框 */
+.searchdiv {
+	background: #394056;
+	border: 1px solid #000;
+	border-radius: 20px;
+}
+
+.searchdiv input {
+	display: block;
+	font-size: 14px;
+	font-weight: 300;
+	width: 100%;
+	height: 40px;
+	margin: 0;
+	padding: 0 40px 0 15px;
+	border: 0;
+}
+
+#tagPage {
+	background: #394056;
+	border: 1px solid #000;
+	display: block;
+	font-size: 14px;
+	font-weight: 300;
+	width: 30px;
+	height: 30px;
+	margin: 0;
+	padding: 0 0 0 0;
+	border: 0;
+}
+
+#a_last_page_search, #a_current_page_search, #li_chevron_left_search,
+	#li_chevron_right_search, #li_chevron_first_search,
+	#li_chevron_last_search {
+	background: #394056;
+	border: 1px solid #136d9a;
+	display: block;
+	font-size: 14px;
+	font-weight: 300;
+	width: 25px;
+	height: 25px;
+	margin: 0;
+	padding: 0 0 0 0;
+}
+
+#ul_page_search li input:hover:read-only {
+	cursor: pointer
+}
+
+#a_last_page, #a_current_page, #li_chevron_left, #li_chevron_right,
+	#li_chevron_first, #li_chevron_last {
+	background: #394056;
+	border: 1px solid #136d9a;
+	display: block;
+	font-size: 14px;
+	font-weight: 300;
+	width: 25px;
+	height: 25px;
+	margin: 0;
+	padding: 0 0 0 0;
+}
+
+#ul_page li input:hover:read-only {
+	cursor: pointer
+}
+</style>
+
+</head>
+<body ng-app="SqlApp" ng-controller="SqlController"
+	style="background: #404a59; color: #404a59">
+
+	<div th:include="header :: content"></div>
+
+	<div class="row">
+		<div class="col s2">
+			<div class="collection">
+				<a id='a_div_basic' href="javascript:select_tab('div_basic')"
+					style="background: #404a59" class="collection-item active">概况</a> <a
+					id='a_div_durationTime'
+					href="javascript:select_tab('div_durationTime')"
+					style="background: #404a59" class="collection-item">分类查看</a> <a
+					id='a_div_customTime'
+					href="javascript:select_tab('div_customTime')"
+					style="background: #404a59" class="collection-item">自定义</a>
+			</div>
+		</div>
+
+		<div class="col s10">
+			<!-- 对应的div -->
+			<div id="div_basic" class="tab_div col s12">
+				<div class="row">
+					<h5>
+						<a href=""><span class="white-text">耗时数据库脚本排行</span></a>
+					</h5>
+					<table class = "responsive-table">
+						<thead>
+							<tr>
+								<th><span class="white-text"></span></th>
+								<th><span class="white-text">耗时</span></th>
+								<th><span class="white-text">最大时间</span></th>
+								<th><span class="white-text">系统错误(次)</span></th>
+								<th><span class="white-text">脚本</span></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="item in listLatestSql">
+								<td><h5 class="white-text">{{ $index + 1 }}</h5></td>
+								<td><span class="white-text">{{ item.durationsSum }}</span></td>
+								<td><span class="white-text">{{ item.maximum }}</span></td>
+								<td><span class="white-text">{{ item.systemErrors }}</span></td>
+								<td style="width:100px" ><span class="white-text">{{ item.iid }}</span></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+			<div id="div_durationTime" class="tab_div col s12">
+				<div class="progress">
+					<div class="indeterminate"></div>
+				</div>
+				<div class="row">
+					<div class="col s4 m4">
+						<br></br>
+						<div class="col s12">
+							<h5 class="white-text">详细数据库脚本信息数据</h5>
+						</div>
+					</div>
+					<div class="col s5 m5"></div>
+					<div class="col s2 m2">
+						<div class="input-field col s10 m10">
+							<select id='select_durationTime' class="white-text">
+								<option value="YEAR" selected='true'>按年查看</option>
+								<option value="MONTH">按月查看</option>
+								<option value="DAY">按日查看</option>
+								<option value="HOUR">按时查看</option>
+								<option value="MINUTE">按分查看</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<table>
+						<thead>
+							<tr>
+								<th><span class="white-text">时间</span></th>
+								<th><span class="white-text">耗时</span></th>
+								<th><span class="white-text">最大时间</span></th>
+								<th><span class="white-text">系统错误(次)</span></th>
+								<th><span class="white-text">脚本</span></th>
+							</tr>
+						</thead>
+
+						<tbody>
+							<tr ng-repeat="item in listData"
+								ng-class="$index % 2 == 0 ? 'common_tr_Even' : 'common_tr_odd'">
+								<td><span class="white-text">{{ item.queryTime |
+										limitTo:limitTo }}</span></td>
+								<td><span class="white-text">{{ item.durationsSum }}</span></td>
+								<td><span class="white-text">{{ item.maximum }}</span></td>
+								<td><span class="white-text">{{ item.systemErrors }}</span></td>
+								<td style="width:100px" ><span class="white-text">{{ item.iid }}</span></td>
+							</tr>
+						</tbody>
+					</table>
+					<br></br>
+					<ul class="pagination center" id="ul_page_search">
+						<li class="waves-flat" onclick="pageFirst();"><input
+							id="li_chevron_first" readonly="true"
+							class="white-text center-align"></input></li>
+						<li class="waves-flat" onclick="pagePrevious();"><input
+							id="li_chevron_left" readonly="true"
+							class="white-text center-align"></input></li>
+						<li class="waves-flat"><input id="a_current_page"
+							class="white-text center-align" value="1" onchange="pageJump()"></input></li>
+
+						<li class="waves-flat"><span class="white-text"> ... </span></li>
+						<li class="waves-flat"><input id="a_last_page"
+							readonly="true" class="white-text center-align" value="1"></input></li>
+
+						<li class="waves-flat" onclick="pageNext();"><input
+							id="li_chevron_right" readonly="true"
+							class="white-text center-align"></input></li>
+						<li class="waves-flat" onclick="pageLast();"><input
+							id="li_chevron_last" readonly="true"
+							class="white-text center-align"></input></li>
+
+					</ul>
+				</div>
+			</div>
+
+			<div id="div_customTime" class="tab_div col s12">
+				<div class="progress">
+					<div class="indeterminate"></div>
+				</div>
+				<div class="row">
+					<br></br>
+					<div class="col s4">
+						<h5 class="white-text">详细数据库脚本信息数据</h5>
+					</div>
+					<div class="searchdiv col s2">
+								<input class="white-text datainp" id="input_condition"
+									type="text" placeholder="搜索条件"></input>
+							</div>
+					<div class="searchdiv col s2"
+						onclick="jeDate({dateCell:'#start_date_time',isTime:true,format:'YYYY-MM-DD hh:mm:ss',okfun:function(val){$('#start_date_time').val(val);alert('ff');}})">
+						<input class="white-text datainp" id="start_date_time" type="text"
+							placeholder="起始时间" readonly='true'></input>
+					</div>
+					<div class="searchdiv col s2"
+						onclick="jeDate({dateCell:'#stop_date_time',isTime:true,format:'YYYY-MM-DD hh:mm:ss',okfun:function(val){$('#stop_date_time').val(val);alert('ff');}})">
+						<input class="white-text datainp" id="stop_date_time" type="text"
+							placeholder="结束时间" readonly='true'></input>
+					</div>
+					<div class="col s2">
+						<!-- /.col-lg-6 -->
+						<a href="javascript:searchPage();" class="input-field col s4"><i
+							class="material-icons">search</i></a>
+					</div>
+
+				</div>
+
+				<div class="row">
+					<table>
+						<thead>
+							<tr>
+								<th><span class="white-text">执行时间</span></th>
+								<th><span class="white-text">脚本</span></th>
+							</tr>
+						</thead>
+
+						<tbody>
+							<tr ng-repeat="item in listDataSearch"
+								ng-class="$index % 2 == 0 ? 'common_tr_Even' : 'common_tr_odd'">
+								<td><span class="white-text">{{ item.queryTime |
+										limitTo : 16}}</span></td>
+								<td><span class="white-text">{{ item.iid }}</span></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<br></br>
+				<div class="row">
+					<ul class="pagination center" id="ul_page_search">
+						<li class="waves-flat" onclick="searchpageFirst();"><input
+							id="li_chevron_first_search" readonly="true"
+							class="white-text center-align"></input></li>
+						<li class="waves-flat" onclick="searchpagePrevious();"><input
+							id="li_chevron_left_search" readonly="true"
+							class="white-text center-align"></input></li>
+						<li class="waves-flat"><input id="a_current_page_search"
+							class="white-text center-align" value="1"
+							onchange="searchpageJump()"></input></li>
+
+						<li class="waves-flat"><span class="white-text"> ... </span></li>
+						<li class="waves-flat"><input id="a_last_page_search"
+							readonly="true" class="white-text center-align" value="1"></input></li>
+
+						<li class="waves-flat" onclick="searchpageNext();"><input
+							id="li_chevron_right_search" readonly="true"
+							class="white-text center-align"></input></li>
+						<li class="waves-flat" onclick="searchpageLast();"><input
+							id="li_chevron_last_search" readonly="true"
+							class="white-text center-align"></input></li>
+
+					</ul>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<div th:include="footer :: content"></div>
+</body>
+
+<script type="text/javascript">
+	/*<![CDATA[*/
+
+	/*]]>*/
+</script>
+</html>

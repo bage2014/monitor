@@ -1,0 +1,16 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<!-- 引入公共部分 -->
+<meta th:include="common :: common"></meta>
+<title th:utext="#{Index.title}"></title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body onload="init()">
+	<div th:include="header :: content"></div>		
+	
+	<div th:utext="${msg}"></div>
+	<div th:include="footer :: content"></div>
+
+</body>
+</html>

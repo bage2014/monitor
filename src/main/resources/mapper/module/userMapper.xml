@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bage.mapper.module.UserMapper">
+
+	<insert id="insert" parameterType="User">
+		insert into tbuser(account,username,password,icon,roleId,role,queryTime,deleteStatus,des) 
+		values(#{account} ,#{username} ,#{password} ,#{icon} ,#{roleId} ,#{role} ,#{queryTime} ,#{deleteStatus},#{des}) ;
+	</insert>
+     
+    <update id="deletebyId">  
+        update tbuser set delete_status = 1 where id = #{id}  
+    </update>  
+    
+    <update id="deleteByAccount">  
+        update tbuser set delete_status = 1 where account = #{account}  
+    </update>  
+    
+     <update id="update" parameterType="User">  
+     	 update tbuser
+        set account=#{account},username=#{username},password=#{password},icon=#{icon},roleId=#{roleId},
+        role=#{role} ,queryTime=#{queryTime},deleteStatus=#{deleteStatus},des=#{des}  
+        where id = #{id}  
+    </update>  
+    
+    <select id="queryById" resultType="User">
+        select * from tbuser where id=#{id}
+    </select>
+    <select id="queryByAccount" resultType="User">
+        select * from tbuser where account=#{account}
+    </select>
+    
+    <select id="queryByPage" resultType="User">
+    	select * from tbuser
+    </select>
+ 
+</mapper>

@@ -1,0 +1,17 @@
+ 
+/* 自定义的查询输入框 */
+.searchdiv {
+	background: #394056;
+	border: 1px solid #000;
+	border-radius: 20px;
+}
+.searchdiv input{
+	display: block;
+    font-size: 14px;
+    font-weight: 300;
+    width: 100%;
+    height: 40px;
+    margin: 0;
+    padding: 0 40px 0 15px;
+    border: 0;
+}

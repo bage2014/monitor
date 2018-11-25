@@ -1,0 +1,125 @@
+<!-- 引入公共部分的页面 -->
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="common">
+
+	<!-- 引入 jQuery -->
+	<script type="text/javascript"
+		th:attr="src=@{'/third/jquery-3.1.1/jquery-3.1.1.min.js'}"></script>
+	
+	<!-- 引入 jedate -->
+	<script type="text/javascript"
+		th:attr="src=@{'/third/jedate/jedate.js'}"></script>
+	
+	<!-- Bootstrap -->
+	<!-- <link th:attr="href=@{'/third/bootstrap-3.3.7/css/bootstrap.min.css'}" rel="stylesheet"></link>
+	<script th:attr="src=@{'/third/bootstrap-3.3.7/js/bootstrap.min.js'}"></script>
+	 -->
+	
+	<!-- 引入  theme.js  -->
+	<script type="text/javascript"
+		th:attr="src=@{'/theme/'+${session.session_attr_theme}+'/js/theme.js'}"></script>
+
+	<!-- 引入  angular.min.js  -->
+	<script type="text/javascript"
+		th:attr="src=@{'/third/angularjs/angular.min.js'}"></script>
+
+	<!-- 引入  common/utils.js  -->
+	<script type="text/javascript" th:attr="src=@{'/js/common/utils.js'}"></script>
+	<!-- 引入  common/utils.js  -->
+	<script type="text/javascript" th:attr="src=@{'/js/common/constraints.js'}"></script>
+	<!-- 引入  common/utils.css  -->
+	<link th:attr="href=@{'/css/common/utils.css'}" rel="stylesheet"></link>
+		
+	<!-- 引入 EChart -->
+	<script type="text/javascript"
+		th:attr="src=@{'/third/echart/dist/echarts.js'}"></script>
+	<script type="text/javascript"
+		th:attr="src=@{'/third/echart/dist/extension/bmap.js'}"></script>
+	<script type="text/javascript"
+		th:attr="src=@{'/third/china/china.js'}"></script>
+	
+	<!-- 引入 materialize-v0.97.8 -->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+		rel="stylesheet"></link>
+	<link
+		th:attr="href=@{'/third/materialize-v0.97.8/css/materialize.min.css'}"
+		rel="stylesheet"></link>
+	<script type="text/javascript"
+		th:attr="src=@{'/third/materialize-v0.97.8/js/materialize.min.js'}"></script>
+
+	<script type="text/javascript">
+		// init modal
+		$(document).ready(function() {
+			$('.modal').modal();
+			$('select').material_select();
+		});
+		
+
+	</script>
+
+	<script type="text/javascript" th:attr="src=@{'/js/header.js'}"></script>
+
+</div>
+
+<!-- 	***************************** modal ************************************* -->
+<!-- Modal Structure index_modal_signout -->
+<div id="index_modal_signout" class="modal">
+	<div class="modal-content">
+		<h4>Sign out</h4>
+		<p>Are you sure to sign out ?</p>
+	</div>
+	<div class="modal-footer">
+		<form th:action="@{/user/logout}" method="post">
+			<input
+				class="modal-action modal-close waves-effect waves-green btn-flat"
+				type="submit" value="Yes" />
+		</form>
+	</div>
+</div>
+<!-- Modal Structure index_modal_language -->
+<div id="index_modal_language" class="modal">
+	<div class="modal-content">
+		<h4 th:utext="#{Index.languageSettings}">Language Settings</h4>
+
+		<div>
+			<p>
+				<input name="language" type="radio" id="Language1" value="chinese"
+					class="with-gap" checked="true" /> <label for="Language1"
+					th:utext="#{Index.language1}">Language1</label>
+			</p>
+			<p>
+				<input name="language" type="radio" id="Language2" value="english" />
+				<label for="Language2" th:utext="#{Index.language2}">Language2</label>
+			</p>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<a href="javascript:languageSettingOK()"
+			class="modal-action modal-close waves-effect waves-green btn-flat">OK</a>
+	</div>
+</div>
+<!-- Modal Structure index_modal_theme -->
+<div id="index_modal_theme" class="modal">
+	<div class="modal-content">
+		<h4 th:utext="#{Index.themeSettings}">Theme Settings</h4>
+
+		<div>
+			<p>
+				<input name="theme" type="radio" id="theme1" value="green"
+					class="with-gap" checked="true" /> <label for="theme1"
+					th:utext="#{Index.theme1}">Theme1</label>
+			</p>
+			<p>
+				<input name="theme" type="radio" id="theme2" value="purple" /> <label
+					for="theme2" th:utext="#{Index.theme2}">Theme2</label>
+			</p>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<a href="javascript:themeSettingOK()"
+			class="modal-action modal-close waves-effect waves-green btn-flat">OK</a>
+	</div>
+</div>
+
+</html>
+

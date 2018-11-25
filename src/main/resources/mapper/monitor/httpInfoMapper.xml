@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bage.mapper.monitor.HttpInfoMapper">
+
+	<select id="queryLatest" resultType="HttpInfo">
+		select * from (select * from httpInformations where id > #{maxId}) as sqlsql order by sqlsql.id desc
+	</select>
+
+	<select id="init" resultType="HttpInfo">
+		select * from httpInformations order by id desc limit 0,#{size}
+	</select>
+	
+    <select id="getTotalRow" resultType="java.lang.Integer">
+        select count(1) as totalRow from httpInformations
+    </select>
+    
+	<insert id="insert" parameterType="HttpInfo">  
+        insert into httpInformations
+        (querytime,appid,delete_status,name,iid
+        ,hits,durationsSum,durationsSquareSum,maximum,cpuTimeSum
+        ,systemErrors,responseSizesSum,childHits,childDurationsSum)
+        values
+        (#{querytime},#{appid},#{delete_status},#{name},#{iid}
+        ,#{hits},#{durationsSum},#{durationsSquareSum},#{maximum},#{cpuTimeSum}
+        ,#{systemErrors},#{responseSizesSum},#{childHits},#{childDurationsSum})  
+    </insert>
+	<insert id="insertDefault" parameterType="HttpInfo">  
+        insert into httpInformations
+        (appid,name,iid
+        ,hits,durationsSum,durationsSquareSum,maximum,cpuTimeSum
+        ,systemErrors,responseSizesSum,childHits,childDurationsSum)
+        values
+        (#{appid},#{name},#{iid}
+        ,#{hits},#{durationsSum},#{durationsSquareSum},#{maximum},#{cpuTimeSum}
+        ,#{systemErrors},#{responseSizesSum},#{childHits},#{childDurationsSum})  
+  </insert>
+    
+    <!--  
+    <delete id="delete">  
+        delete from memoryInformations where id = #{id}  
+    </delete>   
+    -->
+     
+    <update id="deleteById">  
+        update httpInformations set delete_status = 1 where id = #{id}  
+    </update>  
+    
+     <update id="updateById" parameterType="HttpInfo">  
+     	 update httpInformations
+        set querytime=#{querytime},appid=#{appid},delete_status=#{delete_status}
+        ,name=#{name},iid=#{iid},hits=#{hits},durationsSum=#{durationsSum}
+        ,durationsSquareSum=#{durationsSquareSum},maximum=#{maximum},cpuTimeSum=#{cpuTimeSum}
+        ,systemErrors=#{systemErrors},responseSizesSum=#{responseSizesSum}
+        ,childHits=#{childHits},childDurationsSum=#{childDurationsSum}       
+        where id = #{id}  
+    </update>  
+    
+    <select id="queryById" resultType="HttpInfo">
+        select * from httpInformations where id=#{id}
+    </select>
+    
+    <select id="queryByPage" resultType="HttpInfo">
+    	select * from httpInformations limit #{startId},#{pageLength}
+    </select>
+ 
+</mapper>

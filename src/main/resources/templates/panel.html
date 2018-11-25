@@ -1,0 +1,394 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Title</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<!-- 引入公共部分 -->
+<meta th:include="common :: common"></meta>
+<script type="text/javascript" th:attr="src=@{'/js/panel.js'}"></script>
+</head>
+<body ng-app="PanelApp" ng-controller="PanelController">
+
+	<div th:include="header :: content"></div>
+
+	<div class="container">
+		<div class="row">
+			<div class="col s12 m6">
+				<div class="card-panel hoverable">
+					<div class="card blue-grey darken-1">
+						<div class="card-content white-text">
+							<span class="card-title">CPU Info</span>
+							<p>I am a very simple card. I am good at containing small
+								bits of information. I am convenient because I require little
+								markup to use effectively.</p>
+						</div>
+						<div class="card-action">
+							<a href="#">Link1</a> <a href="#">Link2</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+
+			<div class="col-md-6">
+
+
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title"></h3>
+					</div>
+					<div class="panel-body">
+
+						<dl class="dl-horizontal">
+							<dt>os</dt>
+							<dd>{{ cpu.os }}</dd>
+						</dl>
+						<dl class="dl-horizontal">
+							<dt>javaVersion</dt>
+							<dd>{{ cpu.javaVersion }}</dd>
+						</dl>
+						<dl class="dl-horizontal">
+							<dt>host</dt>
+							<dd>{{ cpu.host }}</dd>
+						</dl>
+						<dl class="dl-horizontal">
+							<dt>freeDiskSpaceInTemp</dt>
+							<dd>{{ cpu.freeDiskSpaceInTemp }}</dd>
+						</dl>
+						<dl class="dl-horizontal">
+							<dt>jvmVersion</dt>
+							<dd>{{ cpu.jvmVersion }}</dd>
+						</dl>
+
+						<dl class="dl-horizontal">
+							<dt>jvmArguments</dt>
+							<dd>{{ cpu.jvmArguments }}</dd>
+						</dl>
+						<dl class="dl-horizontal">
+							<dt>serverInfo</dt>
+							<dd>{{ cpu.serverInfo }}</dd>
+						</dl>
+						<dl class="dl-horizontal">
+							<dt>maxConnectionCount</dt>
+							<dd>{{ cpu.maxConnectionCount }}</dd>
+						</dl>
+						<dl class="dl-horizontal">
+							<dt>contextPath</dt>
+							<dd>{{ cpu.contextPath }}</dd>
+						</dl>
+						<dl class="dl-horizontal">
+							<dt>activeConnectionCount</dt>
+							<dd>{{ cpu.activeConnectionCount }}</dd>
+						</dl>
+
+						<!-- <dl class="dl-horizontal"><dt>activeThreadCount</dt><dd>{{ cpu.activeThreadCount }}</dd></dl>
+						<dl class="dl-horizontal"><dt>availableProcessors</dt><dd>{{ cpu.availableProcessors }}</dd></dl>
+						<dl class="dl-horizontal"><dt>cacheInformationsList</dt><dd>{{ cpu.cacheInformationsList }}</dd></dl>
+						<dl class="dl-horizontal"><dt>contexddisplayName</dt><dd>{{ cpu.contexddisplayName }}</dd></dl>
+						
+						<dl class="dl-horizontal"><dt>dataBaseVersion</dt><dd>{{ cpu.dataBaseVersion }}</dd></dl>
+						<dl class="dl-horizontal"><dt>dataSourceDetails</dt><dd>{{ cpu.dataSourceDetails }}</dd></dl>
+						
+						
+						<dl class="dl-horizontal"><dt>peakThreadCount</dt><dd>{{ cpu.peakThreadCount }}</dd></dl>
+						<dl class="dl-horizontal"><dt>pid</dt><dd>{{ cpu.pid }}</dd></dl>
+						<dl class="dl-horizontal"><dt>processCpuTimeMillis</dt><dd>{{ cpu.processCpuTimeMillis }}</dd></dl>
+						<dl class="dl-horizontal"><dt>sessionAgeSum</dt><dd>{{ cpu.sessionAgeSum }}</dd></dl>
+						
+						<dl class="dl-horizontal"><dt>sessionCount</dt><dd>{{ cpu.sessionCount }}</dd></dl>
+						<dl class="dl-horizontal"><dt>starddate</dt><dd>{{ cpu.starddate }}</dd></dl>
+						<dl class="dl-horizontal"><dt>systemCpuLoad</dt><dd>{{ cpu.systemCpuLoad }}</dd></dl>
+						<dl class="dl-horizontal"><dt>systemLoadAverage</dt><dd>{{ cpu.systemLoadAverage }}</dd></dl>
+						<dl class="dl-horizontal"><dt>threadCount</dt><dd>{{ cpu.threadCount }}</dd></dl>
+						
+						<dl class="dl-horizontal"><dt>totalStartedThreadCount</dt><dd>{{ cpu.totalStartedThreadCount }}</dd></dl>
+						<dl class="dl-horizontal"><dt>transactionCount</dt><dd>{{ cpu.transactionCount }}</dd></dl>
+						<dl class="dl-horizontal"><dt>unixMaxFileDescriptorCount</dt><dd>{{ cpu.unixMaxFileDescriptorCount }}</dd></dl>
+						<dl class="dl-horizontal"><dt>unixOpenFileDescriptorCount</dt><dd>{{ cpu.unixOpenFileDescriptorCount }}</dd></dl>
+						<dl class="dl-horizontal"><dt>usedConnectionCount</dt><dd>{{ cpu.usedConnectionCount }}</dd></dl>
+						 -->
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-6">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">Memory Info</h3>
+					</div>
+					<div class="panel-body">
+						<dl class="dl-horizontal">
+							<dt>usedMemory</dt>
+							<dd>{{ memoryInformations.usedMemory }}</dd>
+						</dl>
+						<dl class="dl-horizontal">
+							<dt>maxMemory</dt>
+							<dd>{{ memoryInformations.maxMemory }}</dd>
+						</dl>
+						<!-- <dl class="dl-horizontal"><dt>usedPermGen</dt><dd>{{ memoryInformations.usedPermGen }}</dd></dl>-->
+						<!-- <dl class="dl-horizontal"><dt>maxPermGen</dt><dd>{{ memoryInformations.maxPermGen }}</dd></dl>-->
+						<dl class="dl-horizontal">
+							<dt>usedNonHeapMemory</dt>
+							<dd>{{ memoryInformations.usedNonHeapMemory }}</dd>
+						</dl>
+
+						<dl class="dl-horizontal">
+							<dt>usedBufferedMemory</dt>
+							<dd>{{ memoryInformations.usedBufferedMemory }}</dd>
+						</dl>
+						<dl class="dl-horizontal">
+							<dt>loadedClassesCount</dt>
+							<dd>{{ memoryInformations.loadedClassesCount }}</dd>
+						</dl>
+						<dl class="dl-horizontal">
+							<dt>garbageCollectionTimeMillis</dt>
+							<dd>{{ memoryInformations.garbageCollectionTimeMillis }}</dd>
+						</dl>
+						<dl class="dl-horizontal">
+							<dt>usedPhysicalMemorySize</dt>
+							<dd>{{ memoryInformations.usedPhysicalMemorySize }}</dd>
+						</dl>
+						<dl class="dl-horizontal">
+							<dt>usedSwapSpaceSize</dt>
+							<dd>{{ memoryInformations.usedSwapSpaceSize }}</dd>
+						</dl>
+
+						<dl class="dl-horizontal">
+							<dt>memoryDetails</dt>
+							<dd>{{ memoryInformations.memoryDetails }}</dd>
+						</dl>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">SQL Info</h3>
+				</div>
+				<div class="panel-body">
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th>name</th>
+								<th>durationsSum</th>
+								<th>durationsSquareSum</th>
+								<th>hits</th>
+								<th>childHits</th>
+								<th>childDurationsSum</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="item in listsql.requests">
+								<td>{{ item['1'].name }}</td>
+								<td>{{ item['1'].durationsSum }}</td>
+								<td>{{ item['1'].durationsSquareSum }}</td>
+								<td>{{ item['1'].hits }}</td>
+								<td>{{ item['1'].childHits }}</td>
+								<td>{{ item['1'].childDurationsSum }}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">Threads Info</h3>
+				</div>
+				<div class="panel-body">
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th>Name</th>
+								<th>ID</th>
+								<th>Priority</th>
+								<th>daemon</th>
+								<th>state</th>
+
+								<th>cpuTimeMillis</th>
+								<th>userTimeMillis</th>
+								<!-- <th>deadlocked</th> -->
+								<th>globalThreadId</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="item in listTbodyThreads | limitTo:pageLimit">
+								<td>{{ item.name }}</td>
+								<td>{{ item.id }}</td>
+								<td>{{ item.priority }}</td>
+								<td>{{ item.daemon }}</td>
+								<td>{{ item.state }}</td>
+
+								<td>{{ item.cpuTimeMillis }}</td>
+								<td>{{ item.userTimeMillis }}</td>
+								<!-- <td>{{ item.deadlocked }}</td> -->
+								<td>{{ item.globalThreadId }}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">Sessions Info</h3>
+				</div>
+				<div class="panel-body">
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>lastAccess</th>
+								<th>age</th>
+								<th>expirationDate</th>
+								<th>attributeCount</th>
+
+								<th>serializable</th>
+								<th>country</th>
+								<th>remoteAddr</th>
+								<th>remoteUser</th>
+								<th>userAgent</th>
+
+								<th>serializedSize</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="item in listSessions">
+								<td>{{ item.id }}</td>
+								<td>{{ item.lastAccess }}</td>
+								<td>{{ item.age }}</td>
+								<td>{{ item.expirationDate }}</td>
+								<td>{{ item.attributeCount }}</td>
+
+								<td>{{ item.serializable }}</td>
+								<td>{{ item.country }}</td>
+								<td>{{ item.remoteAddr }}</td>
+								<td>{{ item.remoteUser }}</td>
+								<td>{{ item.userAgent }}</td>
+								<td>{{ item.serializedSize }}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-6">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">SQL Info</h3>
+					</div>
+					<div class="panel-body">
+						<table class="table table-hover">
+							<thead>
+								<tr>
+									<th>application</th>
+									<!-- <th>displayed</th>
+									<th>errorCounter</th> -->
+									<th>estimatedMemorySize</th>
+									<th>maxRequestsCount</th>
+									<th>startDate</th>
+
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>{{ listsql.application }}</td>
+									<!-- <td>{{ listsql.displayed }}</td>
+									<td>{{ listsql.errorCounter }}</td> -->
+									<td>{{ listsql.estimatedMemorySize }}</td>
+									<td>{{ listsql.maxRequestsCount }}</td>
+									<td>{{ listsql.startDate }}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">Database Info</h3>
+					</div>
+					<div class="panel-body">
+						<table class="table table-hover">
+							<thead>
+								<tr>
+									<th>database</th>
+									<th>requestNames</th>
+									<th>result</th>
+									<th>selectedRequestIndex</th>
+
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>{{ databaseInformations.database }}</td>
+									<td>...</td>
+									<td>...</td>
+									<td>{{ databaseInformations.selectedRequestIndex }}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">Processes Info</h3>
+				</div>
+				<div class="panel-body">
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th>user</th>
+								<th>pid</th>
+								<th>cpuPercentage</th>
+								<th>memPercentage</th>
+								<th>vsz</th>
+
+								<th>rss</th>
+								<th>cpuTime</th>
+								<th>command</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="item in listProcesses  | limitTo:pageLimit">
+								<td>{{ item.user }}</td>
+								<td>{{ item.pid }}</td>
+								<td>{{ item.cpuPercentage }}</td>
+								<td>{{ item.memPercentage }}</td>
+								<td>{{ item.vsz }}</td>
+
+								<td>{{ item.rss }}</td>
+								<td>{{ item.cpuTime }}</td>
+								<td>{{ item.command }}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<div th:include="footer :: content"></div>
+
+</body>
+
+
+<script type="text/javascript">
+	/*<![CDATA[*/
+	// based on prepared DOM, initialize echarts instance
+	/*]]>*/
+</script>
+</html>

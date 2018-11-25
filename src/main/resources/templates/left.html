@@ -1,0 +1,34 @@
+<!-- 引入页头-->
+<html lang="zh_CN" xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="content">
+	<ul id="nav-mobile" class="side-nav fixed">
+		<li class="no-padding">
+			<ul class="collapsible collapsible-accordion">
+				<li class="bold"><a
+					class="collapsible-header  waves-effect waves-teal">CSS</a>
+					<div class="collapsible-body">
+						<ul>
+							<li><a href="color.html">颜色</a></li>
+							<li><a href="grid.html">Grid</a></li>
+						</ul>
+					</div></li>
+				<li class="bold active"><a
+					class="collapsible-header active waves-effect waves-teal">Components</a>
+					<div class="collapsible-body" style="display: block;">
+						<ul>
+							<li class="active"><a href="cards.html">Cards</a></li>
+							<li><a href="preloader.html">Preloader</a></li>
+						</ul>
+					</div></li>
+			</ul>
+		</li>
+		<li class="bold"><a href="http://materializecss.com/mobile.html"
+			class="waves-effect waves-teal">Mobile</a></li>
+		<li class="bold"><a href="showcase.html"
+			class="waves-effect waves-teal">展示</a></li>
+		<li class="bold"><a href="themes.html"
+			class="waves-effect waves-teal">Themes</a></li>
+	</ul>
+</div>
+
+</html>

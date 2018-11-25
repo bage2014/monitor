@@ -1,0 +1,302 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>项目一览页面</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<!-- 引入公共部分 -->
+<meta th:include="common :: common"></meta>
+<script type="text/javascript" th:attr="src=@{'/js/summarize.js'}"></script>
+
+</head>
+<body ng-app="SummarizeApp" ng-controller="SummarizeController"
+	style="background: #404a59; color: #404a59">
+	<div th:include="header :: content"></div>
+	<div class="row">
+		<div class="row">
+			<ul class="collapsible" data-collapsible="accordion">
+				<li>
+					<div class="collapsible-header"
+						style="background: #404a59; color: #404a59">
+						<span class="white-text">{{currentAppInfo.appdesc }}</span><span
+							class="white-text"> / {{currentAppInfo.appname }}</span> <a
+							title="查看配置信息"><i class="material-icons right">arrow_drop_down</i></a>
+					</div>
+					<div class="collapsible-body">
+						<div class="row">
+							<div class="col s11 offset-s1">
+								<table>
+									<tbody>
+										<tr>
+											<td><span class="white-text">操作系统</span></td>
+											<td class="truncate"><span class="white-text">{{
+													cpu.os }}</span></td>
+										</tr>
+
+										<tr>
+											<td><span class="white-text">java版本</span></td>
+											<td class="truncate"><span class="white-text">{{
+													cpu.javaVersion }}</span></td>
+										</tr>
+
+										<!-- <tr>
+											<td><span class="white-text">主机地址</span></td>
+											<td class="truncate"><span class="white-text">{{
+													cpu.host }}</span></td>
+										</tr> -->
+
+										<tr>
+											<td><span class="white-text">磁盘空间</span></td>
+											<td class="truncate"><span class="white-text">{{
+													cpu.freeDiskSpaceInTemp }}</span></td>
+										</tr>
+										<tr>
+											<td><span class="white-text">jvm版本</span></td>
+											<td class="truncate"><span class="white-text">{{
+													cpu.jvmVersion }}</span></td>
+										</tr>
+										<tr>
+											<td><span class="white-text">服务器</span></td>
+											<td class="truncate"><span class="white-text">{{
+													cpu.serverInfo }}</span></td>
+										</tr>
+										<tr>
+											<td><span class="white-text">最大连接数</span></td>
+											<td class="truncate"><span class="white-text">{{
+													cpu.maxConnectionCount }}</span></td>
+										</tr>
+
+										<tr>
+											<td><span class="white-text">dataBaseVersion</span></td>
+											<td><span class="white-text">{{cpu.dataBaseVersion
+													}}</span></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<div class="col s8">
+
+			<div class="row">
+				<div class="col s5">
+					<p>
+						<span class="white-text">响应评级</span>
+					</p>
+					<br></br>
+					<div class="row">
+						<div class="col s6">
+							<div id="summarize_response_now_div"
+								style="width: 100% px; height: 100px;"></div>
+						</div>
+						<div class="col s6">
+							<div class="center-align">
+								<h4 class="white-text">{{currentScore }}分</h4>
+							</div>
+
+							<h6 class="white-text">
+								请求数 ：<span>{{currenthits}}</span>
+							</h6>
+							<h6 class="white-text">
+								错误率 ：<span>{{currentsystemErrors}}</span>
+							</h6>
+						</div>
+					</div>
+				</div>
+				<div class="col s7">
+					<div class="row">
+						<p>
+							<a href="memory?appid={{appid}}"><span class="white-text">内存使用情况</span></a>
+						</p>
+						<br></br>
+						<div id="summarize_memory_now_div"
+							style="width: 100% px; height: 100px;"></div>
+						<div class="row">
+							<div class="col s4">
+								<span class="white-text">java内存使用</span>
+							</div>
+							<div class="col s4">
+								<span class="white-text">可用物理内存</span>
+							</div>
+							<div class="col s4">
+								<span class="white-text">可用交换内存</span>
+							</div>
+						</div>
+					</div>
+				</div>				
+			</div>
+
+			<div class="row">
+				<div class="col s12">
+					<div class="row">
+						<div class="col s8">
+							<h5>
+								<a href="action?appid={{appid}}" title="查看详情">热门菜单排行</a>
+							</h5>
+						</div>
+						<div class="col s2">
+							<a href="javascript:setSessionSortType();" title="排序方式"><i
+								class="material-icons right">import_export</i></a>
+						</div>
+						<div class="col s2">
+							<a href="javascript:customMenu('session')" title="自定义时间"><i
+								class="material-icons right">more_vert</i></a>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col s12">
+							<a id='p_session_durationTime'>最近一小时</a>
+						</div>
+					</div>
+					<div>
+						<div id='div_topn_session' style="width: 100%; height: 200px"></div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<h5>
+					<a href="http?appid={{appid}}" title="查看详情">http请求</a>
+				</h5>
+				<div id="summarize_http_div" style="width: 100%; height: 350px;"></div>
+			</div>
+			<div class="row">
+				<div class="col s8 offset-s2">
+					<h5>
+						<a href="sql?appid={{appid}}" title="查看详情">低效率脚本</a>
+					</h5>
+				</div>
+
+			</div>
+		</div>
+
+		<div class="col s4">
+			<div class="row">
+				<div class="col s3">
+					<p>
+						<a href="session?appid={{appid}}" title="查看详情">在线用户</a>
+					</p>
+				</div>
+				<div class="col s9" style="padding-top: 10px">
+					<ul class="pagination left">
+						<li class="active blue"><a href="" id="a_session1">1</a></li>
+						<li class="active blue"><a href="" id="a_session2">2</a></li>
+						<li class="active blue"><a href="" id="a_session3">3</a></li>
+						<li class="active blue"><a href="" id="a_session4">4</a></li>
+						<li class="active blue"><a href="" id="a_session5">5</a></li>
+						<li class="active blue"><a href="" id="a_session6">6</a></li>
+						<li class="active blue"><a href="" id="a_session7">7</a></li>
+						<li class="active blue"><a href="" id="a_session8">8</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col s2">
+					<span class="white-text">健康度</span>
+				</div>
+				<div class="col s10">
+					<table>
+						<tbody>
+							<tr>
+								<th><span class="white-text">内存</span></th>
+								<th><span class="white-text">数据库连接</span></th>
+								<th><span class="white-text">活跃用户</span></th>
+								<th><span class="white-text">SQL执行效率</span></th>
+							</tr>
+							<tr>
+								<td><h5 class="white-text">{{ appinfo.amemory}}分</h5></td>
+								<td><h5 class="white-text">{{ appinfo.ajdbc}}分</h5></td>
+								<td><h5 class="white-text">{{ appinfo.asession}}分</h5></td>
+								<td><h5 class="white-text">{{ appinfo.asql}}分</h5></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="row">
+				<h5>
+					<a href="jdbc?appid={{appid}}" title="查看详情">数据库连接情况</a>
+				</h5>
+				<div id="summarize_jdbc_div" style="width: 100%; height: 300px;"></div>
+			</div>
+
+			<div class="row">
+				<h5>
+					<a href="memory?appid={{appid}}" title="查看详情">内存使用情况</a>
+				</h5>
+				<div id="summarize_memory_div" style="width: 100%; height: 300px;"></div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col s10 offset-s1">
+				<table class="responsive-table">
+					<thead>
+						<tr>
+							<th><span class="white-text"></span></th>
+							<th><span class="white-text">耗时</span></th>
+							<th><span class="white-text">最大时间</span></th>
+							<th><span class="white-text">系统错误(次)</span></th>
+							<th><span class="white-text">脚本</span></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="item in listLatestSql">
+							<td><h5 class="white-text">{{ $index + 1 }}</h5></td>
+							<td><span class="white-text">{{ item.durationsSum }}</span></td>
+							<td><span class="white-text">{{ item.maximum }}</span></td>
+							<td><span class="white-text">{{ item.systemErrors }}</span></td>
+							<td style="width: 100px"><span class="white-text">{{
+									item.iid }}</span></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+	<div th:include="footer :: content"></div>
+</body>
+
+<script type="text/javascript">
+	/*<![CDATA[*/
+
+	/*]]>*/
+</script>
+
+<!-- 	***************************** modal ************************************* -->
+<div id="index_modal_customMenu" class="modal">
+	<div class="modal-content">
+		<h4>时间区间选择</h4>
+		<ul class="collapsible" data-collapsible="accordion">
+			<li>
+				<div class="collapsible-header active">
+					<input class="with-gap" checked="true" name="isCustom" type="radio"
+						value="FALSE" id="noCustom" /> <label for="noCustom">按类型查看</label><i
+						class="material-icons right">arrow_drop_down</i>
+				</div>
+				<div class="collapsible-body">
+					<ul class="collection">
+						<li class="collection-item"><input class="with-gap"
+							checked="true" name="durationType" type="radio" id="latestYear"
+							value="latestYear" /> <label for="latestYear">最近一年</label></li>
+						<li class="collection-item"><input class="with-gap"
+							value="latestMonth" name="durationType" type="radio"
+							id="latestMonth" /> <label for="latestMonth">最近一月</label></li>
+						<li class="collection-item"><input class="with-gap"
+							value="latestDay" name="durationType" type="radio" id="latestDay" />
+							<label for="latestDay">最近一天</label></li>
+						<li class="collection-item"><input class="with-gap"
+							value="latestHour" name="durationType" type="radio"
+							id="latestHour" /> <label for="latestHour">最近一小时</label></li>
+					</ul>
+				</div>
+			</li>
+		</ul>
+	</div>
+	<div class="modal-footer">
+		<a href="javascript:customTimeOK();"
+			class="modal-action modal-close waves-effect waves-green btn-flat">确定</a>
+	</div>
+</div>
+</html>

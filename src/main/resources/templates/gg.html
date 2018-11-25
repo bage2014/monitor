@@ -1,0 +1,23 @@
+
+<!DOCTYPE html>
+<html ng-app="myApp" id="myApp">
+<head>
+<meta name="viewport" content="width=device-width" />
+
+<title>Test</title>   
+<script src="http://code.angularjs.org/angular-1.0.1.min.js"></script>
+</head>
+<body ng-controller="myController">
+	  {{msg}}   
+	<a href="javascript:;" id="lbtnTest">调用</a>
+</body>
+</html>
+<script>
+	var ngApp = angular.module('myApp', []);
+	ngApp.controller('myController', function($scope, $http) {
+		$scope.msg = '你好，Angular！';
+		$scope.getData = function() {
+			return 'qubernet';
+		}
+	});	
+</script>

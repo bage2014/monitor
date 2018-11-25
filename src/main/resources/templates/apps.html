@@ -1,0 +1,156 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Title</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<!-- 引入公共部分 -->
+<meta th:include="common :: common"></meta>
+<script type="text/javascript" th:attr="src=@{'/js/apps.js'}"></script>
+
+<link th:attr="href=@{'/css/apps.css'}" rel="stylesheet"></link>
+
+
+<style type="text/css">
+/* 自定义的查询输入框 */
+.searchdiv {
+	background: #394056;
+	border: 1px solid #000;
+	border-radius: 20px;
+}
+
+.searchdiv input {
+	display: block;
+	font-size: 14px;
+	font-weight: 300;
+	width: 100%;
+	height: 40px;
+	margin: 0;
+	padding: 0 40px 0 15px;
+	border: 0;
+}
+
+#ul_page_search li input:hover:read-only {
+	cursor: pointer
+}
+
+#a_last_page, #a_current_page, #li_chevron_left, #li_chevron_right,
+	#li_chevron_first, #li_chevron_last {
+	background: #394056;
+	border: 1px solid #136d9a;
+	display: block;
+	font-size: 14px;
+	font-weight: 300;
+	width: 25px;
+	height: 25px;
+	margin: 0;
+	padding: 0 0 0 0;
+}
+
+#ul_page li input:hover:read-only {
+	cursor: pointer
+}
+</style>
+
+</head>
+<body ng-app="AppsApp" ng-controller="AppsController" style="background: #404a59; color: #404a59">
+
+	<div th:include="header :: content"></div>
+	<div class="row">
+		<div class="col s1"></div>
+		<div class="col s10">
+				<div class="row">
+					<div class="col s12">
+						<div class="row">
+						</div>
+						<div class="row">
+							<div class="col s4"><h5 class="white-text">详细应用信息列表</h5></div>
+							<div class="searchdiv col s4">
+								<div class="col s8">
+									<input id='input_search_key_table' placeholder="Search"
+										type="text" class="white-text"></input>
+								</div>
+								<div class="col s4">
+									<a href="javascript:pageSearch();" class="input-field col s4"><i
+										class="material-icons">search</i></a>
+								</div>
+							</div>
+
+						</div>
+						<table>
+							<thead>
+								<tr>
+									<th></th>
+									<th><span class="white-text" th:utext="#{Index.appUrl}">appurl</span></th>
+									<th><span class="white-text" th:utext="#{Index.appName}">appname</span></th>
+									<th><span class="white-text" th:utext="#{Index.appName}">appdesc</span></th>
+									<th><span class="white-text">所在城市</span></th>
+									<th><span class="white-text">经度</span></th>
+									<th><span class="white-text">维度</span></th>
+									<th><span class="white-text">操作</span></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="item in listAppInfo">
+									<td><span class="white-text" ng-if="item.appurl != null">{{ $index + 1 }}</span></td>
+									<td><span class="white-text">{{ item.appurl }}</span></td>
+									<td><a href="summarize?appid={{ item.id }}" title="查看详情">{{ item.appname }} </a></td>
+									<td><span class="white-text">{{ item.appdesc }}</span></td>
+									<td><span class="white-text">{{ item.city }}</span></td>
+									<td><span class="white-text">{{ item.lan }}</span></td>
+									<td><span class="white-text">{{ item.lat }}</span></td>
+									<td><a style="cursor: pointer"><span class="white-text" ng-if="item.delete_status == 0">监控中...</span></a></td>
+									<td><a ng-if="item.appurl != null"> <span class="white-text" ng-if="item.delete_status != 0">待监控</span></a></td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="row">
+							<ul>
+								<li class="divider"></li>
+							</ul>
+						</div>
+
+						<ul class="pagination center" id="ul_page_search">
+							<li class="waves-flat" onclick="pageFirst();"><input
+								id="li_chevron_first" readonly="true"
+								class="white-text center-align"></input></li>
+							<li class="waves-flat" onclick="pagePrevious();"><input
+								id="li_chevron_left" readonly="true"
+								class="white-text center-align"></input></li>
+							<li class="waves-flat"><input id="a_current_page"
+								class="white-text center-align" value="1" onchange="pageJump()"></input></li>
+
+							<li class="waves-flat"><span class="white-text"> ...
+							</span></li>
+							<li class="waves-flat"><input id="a_last_page"
+								readonly="true" class="white-text center-align" value="1"></input></li>
+
+							<li class="waves-flat" onclick="pageNext();"><input
+								id="li_chevron_right" readonly="true"
+								class="white-text center-align"></input></li>
+							<li class="waves-flat" onclick="pageLast();"><input
+								id="li_chevron_last" readonly="true"
+								class="white-text center-align"></input></li>
+
+						</ul>
+					</div>
+				</div>				
+				<div class="right-align">
+					<a href="" class="btn-floating btn-large scale-transition"> <i
+						class="material-icons">add</i>
+					</a>
+				</div>
+			</div>
+
+		</div>
+		<div class="col s1"></div>
+	<div th:include="footer :: content"></div>
+
+</body>
+
+
+<script type="text/javascript">
+	/*<![CDATA[*/
+
+	/*]]>*/
+</script>
+</html>

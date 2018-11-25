@@ -1,0 +1,368 @@
+<!DOCTYPE HTML >
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<!-- 引入公共部分 -->
+<meta th:include="common :: common"></meta>
+<title>朗坤一体化监控平台</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script type="text/javascript" th:attr="src=@{'/js/index.js'}"></script>
+<link th:attr="href=@{'/css/index.css'}" rel="stylesheet"></link>
+
+<style type="text/css">
+/* 自定义的查询输入框 */
+.searchdiv {
+	background: #394056;
+	border: 1px solid #000;
+	border-radius: 20px;
+}
+
+.searchdiv input {
+	display: block;
+	font-size: 14px;
+	font-weight: 300;
+	width: 100%;
+	height: 40px;
+	margin: 0;
+	padding: 0 40px 0 15px;
+	border: 0;
+}
+
+#ul_page_search li input:hover:read-only {
+	cursor: pointer
+}
+
+#a_last_page, #a_current_page, #li_chevron_left, #li_chevron_right,
+	#li_chevron_first, #li_chevron_last {
+	background: #394056;
+	border: 1px solid #136d9a;
+	display: block;
+	font-size: 14px;
+	font-weight: 300;
+	width: 25px;
+	height: 25px;
+	margin: 0;
+	padding: 0 0 0 0;
+}
+
+#ul_page li input:hover:read-only {
+	cursor: pointer
+}
+</style>
+
+</head>
+<body ng-app="IndexApp" ng-controller="IndexController"
+	style="background: #404a59; color: #404a59">
+	<div th:include="header :: content"></div>
+	<div class="content">
+		<div class="row">
+			<div class="col s1">
+				<div class="collection">
+					<a id='a_div_basic' href="javascript:select_tab('div_basic')"
+						class="collection-item active" style="background: #404a59">概况</a>
+					<a id='a_div_tables' href="javascript:select_tab('div_tables')"
+						style="background: #404a59" class="collection-item">列表</a>
+
+				</div>
+			</div>
+			<div class="tab_div col s11" id='div_basic'>
+				<div class="col s3">
+					<div class="row">
+						<div class="col s12">
+							<div class="row"></div>
+							<div class="row">
+								<div class="col s8">
+									<a><span class="white-text">登录会话排行</span></a>
+								</div>
+								<div class="col s2">
+									<a href="javascript:setSessionSortType();" title="排序方式"><i
+										class="material-icons right">import_export</i></a>
+								</div>
+								<div class="col s2">
+									<a href="javascript:customMenu('session')" title="自定义时间"><i
+										class="material-icons right">more_vert</i></a>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col s12">
+									<a id='p_session_durationTime'>最近一年</a>
+								</div>
+							</div>
+							<div style="background: url('../img/bg_base.jpg') 202px 202px">
+								<div id='div_topn_session' style="width: 100%; height: 200px"></div>
+							</div>
+						</div>
+						<div class="col s12">
+
+							<div class="row"></div>
+							<div class="row">
+								<div class="col s8">
+									<a><span class="white-text">内存使用排行</span></a>
+								</div>
+								<div class="col s2">
+									<a href="javascript:setMemorySortType();" title="排序方式"><i
+										class="material-icons right">import_export</i></a>
+								</div>
+								<div class="col s2">
+									<a href="javascript:customMenu('memory')" title="自定义时间"><i
+										class="material-icons right">more_vert</i></a>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col s12">
+									<a id='p_memory_durationTime'>最近一年</a>
+								</div>
+							</div>
+							<div id='div_topn_memory' style="width: 100%; height: 200px"></div>
+
+						</div>
+
+					</div>
+				</div>
+				<div class="col s6">
+					<div class="row">
+						<div class="col s6">
+							<div class="row"></div>
+							<div id='div_apps_types' style="width: 100%; height: 150px"></div>
+						</div>
+						<br></br>
+						<div class="col s2"></div>
+						<div class="searchdiv col s4">
+							<div class="col s8">
+								<input id='input_search_key_sta' placeholder="Search" type="text"
+									class="white-text"></input>
+							</div>
+							<div class="col s4">
+								<a href="javascript:getStatisticsAppsInfo();" class="input-field col s4"><i
+									class="material-icons">search</i></a>
+							</div>
+						</div>
+					</div>
+					<div id='div_apps_map' style="width: 100%; height: 500px"></div>
+				</div>
+				<div class="col s3">
+					<div class="col s12">
+						<div class="row"></div>
+						<div class="row">
+							<div class="col s8">
+								<a><span class="white-text">用户请求排行</span></a>
+							</div>
+							<div class="col s2">
+								<a href="javascript:setHttpSortType();" title="排序方式"><i
+									class="material-icons right">import_export</i></a>
+							</div>
+							<div class="col s2">
+								<a href="javascript:customMenu('http')" title="自定义时间"><i
+									class="material-icons right">more_vert</i></a>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col s12">
+								<a id='p_http_durationTime'>最近一年</a>
+							</div>
+						</div>
+						<div id='div_topn_http' style="width: 100%; height: 200px"></div>
+					</div>
+					<div class="col s12">
+
+						<div class="row"></div>
+						<div class="row">
+							<div class="col s8">
+								<a><span class="white-text">数据库连接排行</span></a>
+							</div>
+							<div class="col s2">
+								<a href="javascript:setJdbcSortType();" title="排序方式"><i
+									class="material-icons right">import_export</i></a>
+							</div>
+							<div class="col s2">
+								<a href="javascript:customMenu('jdbc')" title="自定义时间"><i
+									class="material-icons right">more_vert</i></a>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col s12">
+								<a id='p_jdbc_durationTime'>最近一年</a>
+							</div>
+						</div>
+						<div id='div_topn_jdbc' style="width: 100%; height: 200px"></div>
+					</div>
+				</div>
+			</div>
+
+			<div class="tab_div col s11" id='div_tables'>
+				<br></br>
+				<div class="row">
+					<div class="col s12">
+						<div class="row">
+							<div class="col s4"><h5 class="white-text">详细应用信息列表</h5></div>
+							<div class="searchdiv col s4">
+								<div class="col s8">
+									<input id='input_search_key_table' placeholder="Search"
+										type="text" class="white-text"></input>
+								</div>
+								<div class="col s4">
+									<a href="javascript:pageSearch();" class="input-field col s4"><i
+										class="material-icons">search</i></a>
+								</div>
+							</div>
+
+						</div>
+						<table>
+							<thead>
+								<tr>
+									<th></th>
+									<th><span class="white-text" th:utext="#{Index.appUrl}">appurl</span></th>
+									<th><span class="white-text" th:utext="#{Index.appName}">appname</span></th>
+									<th><span class="white-text" th:utext="#{Index.appName}">appdesc</span></th>
+									<th><span class="white-text">所在城市</span></th>
+									<th><span class="white-text">经度</span></th>
+									<th><span class="white-text">维度</span></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="item in listAppInfo">
+									<td><span class="white-text" ng-if="item.appurl != null">{{ $index + 1 }}</span></td>
+									<td><span class="white-text">{{ item.appurl }}</span></td>
+									<td><a href="summarize?appid={{ item.id }}" title="查看详情">{{ item.appname }} </a></td>
+									<td><span class="white-text">{{ item.appdesc }}</span></td>
+									<td><span class="white-text">{{ item.city }}</span></td>
+									<td><span class="white-text">{{ item.lan }}</span></td>
+									<td><span class="white-text">{{ item.lat }}</span></td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="row">
+							<ul>
+								<li class="divider"></li>
+							</ul>
+						</div>
+
+						<ul class="pagination center" id="ul_page_search">
+							<li class="waves-flat" onclick="pageFirst();"><input
+								id="li_chevron_first" readonly="true"
+								class="white-text center-align"></input></li>
+							<li class="waves-flat" onclick="pagePrevious();"><input
+								id="li_chevron_left" readonly="true"
+								class="white-text center-align"></input></li>
+							<li class="waves-flat"><input id="a_current_page"
+								class="white-text center-align" value="1" onchange="pageJump()"></input></li>
+
+							<li class="waves-flat"><span class="white-text"> ...
+							</span></li>
+							<li class="waves-flat"><input id="a_last_page"
+								readonly="true" class="white-text center-align" value="1"></input></li>
+
+							<li class="waves-flat" onclick="pageNext();"><input
+								id="li_chevron_right" readonly="true"
+								class="white-text center-align"></input></li>
+							<li class="waves-flat" onclick="pageLast();"><input
+								id="li_chevron_last" readonly="true"
+								class="white-text center-align"></input></li>
+
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<div th:include="footer :: content"></div>
+	<script type="text/javascript">
+		/*<![CDATA[*/
+		/*]]>*/
+	</script>
+</body>
+<!-- 	***************************** modal ************************************* -->
+<!-- Modal Structure index_modal_jumpToDetail -->
+<div id="index_modal_jumpToDetail" class="modal">
+	<div class="modal-content">
+		<h4>应用健康详情</h4>
+		<table>
+			<thead>
+				<tr>
+					<th>内存</th>
+					<th>http请求</th>
+					<th>数据库连接</th>
+					<th>活跃用户</th>
+					<th>SQL执行效率</th>
+					<th><span th:utext="#{Index.appName}">appname</span></th>
+					<th><span th:utext="#{Index.appName}">appdesc</span></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="item in listAppInfoForMapCurrent">
+					<td>{{ item.amemory}}</td>
+					<td>{{ item.ahttp}}</td>
+					<td>{{ item.ajdbc}}</td>
+					<td>{{ item.asession}}</td>
+					<td>{{ item.asql}}</td>
+					<td><a href="summarize?appid={{ item.appid }}" title="查看详情">{{ item.appname }}</a></td>
+					<td>{{ item.appdesc }}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="modal-footer"></div>
+</div>
+
+<!-- 	***************************** modal ************************************* -->
+<div id="index_modal_customMenu" class="modal">
+	<div class="modal-content">
+		<h4>时间区间选择</h4>
+		<ul class="collapsible" data-collapsible="accordion">
+			<li>
+				<div class="collapsible-header active">
+					<input class="with-gap" checked="true" name="isCustom" type="radio"
+						value="FALSE" id="noCustom" /> <label for="noCustom">按类型查看</label><i
+						class="material-icons right">arrow_drop_down</i>
+				</div>
+				<div class="collapsible-body">
+					<ul class="collection">
+						<li class="collection-item"><input class="with-gap"
+							checked="true" name="durationType" type="radio" id="latestYear"
+							value="latestYear" /> <label for="latestYear">最近一年</label></li>
+						<li class="collection-item"><input class="with-gap"
+							value="latestMonth" name="durationType" type="radio"
+							id="latestMonth" /> <label for="latestMonth">最近一月</label></li>
+						<li class="collection-item"><input class="with-gap"
+							value="latestDay" name="durationType" type="radio" id="latestDay" />
+							<label for="latestDay">最近一天</label></li>
+						<li class="collection-item"><input class="with-gap"
+							value="latestHour" name="durationType" type="radio"
+							id="latestHour" /> <label for="latestHour">最近一小时</label></li>
+					</ul>
+				</div>
+			</li>
+			<li>
+				<div class="collapsible-header">
+					<input class="with-gap" name="isCustom" type="radio" id="isCustom"
+						value="TRUE" /> <label for="isCustom">自定义</label><i
+						class="material-icons right">arrow_drop_down</i>
+				</div>
+				<div class="collapsible-body">
+					<div class="row">
+						<div class="col s3">
+							<input type="date" id='startDate' class="datepicker"></input>
+						</div>
+						<div class="col s2">
+							<input type="time" id='startTime'></input>
+						</div>
+						<div class="col s2">至</div>
+						<div class="col s3">
+							<input type="date" id='stopDate' class="datepicker"></input>
+						</div>
+						<div class="col s2">
+							<input type="time" id='stopTime'></input>
+						</div>
+					</div>
+				</div>
+			</li>
+		</ul>
+	</div>
+	<div class="modal-footer">
+		<a href="javascript:customTimeOK();"
+			class="modal-action modal-close waves-effect waves-green btn-flat">确定</a>
+	</div>
+</div>
+
+</html>
